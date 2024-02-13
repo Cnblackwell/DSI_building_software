@@ -18,23 +18,8 @@ pd.set_option("display.max_columns", None)
 
 # %% NEW
 #Argparse code:
-import argparse
-import sys
 
-parser = argparse.ArgumentParser(description='DineSafe TO trends: Establishments and Fines')
-parser.add_argument('--title', '-t', type=str, help='Plot title')
-parser.add_argument('--output_file', '-o', type=str, help='Output plot filename')
-parser.add_argument('--verbose', '-v', action='store_true', help='Enable verbose mode')
-
-# Parse the arguments
-args = parser.parse_args()
-
-# Access the arguments using args.title and args.output_file
-print("Title:", args.title)
-print("Output file:", args.output_file)
-print("Verbose mode:", args.verbose)
-
-
+#Configure logging
 logging.basicConfig(
     handlers=(logging.StreamHandler(), logging.FileHandler('DineSafeTO.log')), 
     level=logging.INFO,
@@ -49,15 +34,6 @@ except Exception as e:
     logging.error('Error loading dataset from {dataset_url}:{e}')
     raise e
 
-# %% NEW
-#Config files
-config_files = ['systemconfig.yml', 'jobconfig.yml']
-config = {}
-
-for this_config_file in config_files:
-    with open(this_config_file, 'r') as yamlfile:
-        this_config = yaml.safe_load(yamlfile)
-        config.update(this_config)
 
 
 # %%
@@ -66,9 +42,20 @@ for this_config_file in config_files:
 # Task 1: Load the data to a single DataFrame
 #dine_safe_TO = pd.read_csv('/Users/cnblackwell/Desktop/DSI_Materials/python_data/Dinesafe.csv') 
 
-#NEW        
+# PREVIOUSLY       
 # Task 1: Load the data to a single DataFrame, using the config files
-dine_safe_TO = pd.read_csv(config['dataset'])
+# dine_safe_TO = pd.read_csv(config['dataset'])
+
+#NEW with VAlue
+dine_safe_TO = pd.read_csv(dataset_url)  
+
+try:
+    # Attempt to create DataFrame from the CSV file at the specified URL
+    dine_safe_TO = pd.read_csv(dataset_url)
+except Exception as e:
+    # If an error occurs, raise a custom error with a descriptive message
+    raise ValueError("Error: Unable to load data from the provided URL. Please make sure the URL is correct and accessible.") from e
+
 
 # %%
 # Task 2: Profile the DataFrame
@@ -338,6 +325,16 @@ plt.grid(alpha=0.8)
 
 #Ta-dah!
 plt.show()
+
+# %% NEW
+#Config files
+config_files = ['systemconfig.yml', 'jobconfig.yml']
+config = {}
+
+for this_config_file in config_files:
+    with open(this_config_file, 'r') as yamlfile:
+        this_config = yaml.safe_load(yamlfile)
+        config.update(this_config)
 
 # NEW 
 # Plot and visualize using config and argparse, incorporated

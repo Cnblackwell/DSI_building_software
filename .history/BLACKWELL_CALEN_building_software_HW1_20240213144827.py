@@ -46,8 +46,7 @@ try:
     dine_safe_TO = pd.read_csv(dataset_url)
     logging.info(f'Successfully loaded {dataset_url}')
 except Exception as e:
-    logging.error('Error loading dataset from {dataset_url}:{e}')
-    raise e
+    logging.error
 
 # %% NEW
 #Config files

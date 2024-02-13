@@ -34,7 +34,7 @@ print("Title:", args.title)
 print("Output file:", args.output_file)
 print("Verbose mode:", args.verbose)
 
-
+#Configure logging
 logging.basicConfig(
     handlers=(logging.StreamHandler(), logging.FileHandler('DineSafeTO.log')), 
     level=logging.INFO,
@@ -49,15 +49,6 @@ except Exception as e:
     logging.error('Error loading dataset from {dataset_url}:{e}')
     raise e
 
-# %% NEW
-#Config files
-config_files = ['systemconfig.yml', 'jobconfig.yml']
-config = {}
-
-for this_config_file in config_files:
-    with open(this_config_file, 'r') as yamlfile:
-        this_config = yaml.safe_load(yamlfile)
-        config.update(this_config)
 
 
 # %%
@@ -66,9 +57,11 @@ for this_config_file in config_files:
 # Task 1: Load the data to a single DataFrame
 #dine_safe_TO = pd.read_csv('/Users/cnblackwell/Desktop/DSI_Materials/python_data/Dinesafe.csv') 
 
-#NEW        
+# PREVIOUSLY       
 # Task 1: Load the data to a single DataFrame, using the config files
-dine_safe_TO = pd.read_csv(config['dataset'])
+# dine_safe_TO = pd.read_csv(config['dataset'])
+
+dine_safe_TO = dataset_url        
 
 # %%
 # Task 2: Profile the DataFrame
@@ -338,6 +331,16 @@ plt.grid(alpha=0.8)
 
 #Ta-dah!
 plt.show()
+
+# %% NEW
+#Config files
+config_files = ['systemconfig.yml', 'jobconfig.yml']
+config = {}
+
+for this_config_file in config_files:
+    with open(this_config_file, 'r') as yamlfile:
+        this_config = yaml.safe_load(yamlfile)
+        config.update(this_config)
 
 # NEW 
 # Plot and visualize using config and argparse, incorporated

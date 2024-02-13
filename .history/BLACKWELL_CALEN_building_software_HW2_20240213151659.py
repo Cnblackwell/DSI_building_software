@@ -66,9 +66,9 @@ for this_config_file in config_files:
 # Task 1: Load the data to a single DataFrame
 #dine_safe_TO = pd.read_csv('/Users/cnblackwell/Desktop/DSI_Materials/python_data/Dinesafe.csv') 
 
-#NEW        
+# PREVIOUSLY       
 # Task 1: Load the data to a single DataFrame, using the config files
-dine_safe_TO = pd.read_csv(config['dataset'])
+# dine_safe_TO = pd.read_csv(config['dataset'])
 
 # %%
 # Task 2: Profile the DataFrame

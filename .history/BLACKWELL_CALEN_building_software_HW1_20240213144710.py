@@ -43,11 +43,10 @@ logging.basicConfig(
 dataset_url = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/ea1d6e57-87af-4e23-b722-6c1f5aa18a8d/resource/815aedb5-f9d7-4dcd-a33a-4aa7ac5aac50/download/Dinesafe.csv'
 
 try:
-    dine_safe_TO = pd.read_csv(dataset_url)
+    Dine = pd.read_csv(dataset_url)
     logging.info(f'Successfully loaded {dataset_url}')
 except Exception as e:
-    logging.error('Error loading dataset from {dataset_url}:{e}')
-    raise e
+    logging.err
 
 # %% NEW
 #Config files

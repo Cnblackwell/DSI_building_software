@@ -1,12 +1,11 @@
 
 
 # %%
-#Import YAML, argparse, matplotlib, logging
+#Import YAML, argparse, matplotlib
 
 import yaml
 import matplotlib.pyplot as plt
 import argparse
-import logging
 
 # %%
 #Loading pandas
@@ -22,18 +21,15 @@ import argparse
 import sys
 
 parser = argparse.ArgumentParser(description='DineSafe TO trends: Establishments and Fines')
-parser.add_argument('--title', '-t', type=str, help='Plot title')
-parser.add_argument('--output_file', '-o', type=str, help='Output plot filename')
-parser.add_argument('--verbose', '-v', action='store_true', help='Enable verbose mode')
+parser.add_argument('--title', '-t', type=str, help='Plot title',default='DineSafe TO trends')
+parser.add_argument('--output_file', '-o', type=str, help='Output plot filename',default='DineSafe_TO_Analysis')
 
-# Parse the arguments
-args = parser.parse_args()
+# Parse only known arguments, ignoring any unrecognized arguments
+args, _ = parser.parse_known_args()
 
 # Access the arguments using args.title and args.output_file
 print("Title:", args.title)
 print("Output file:", args.output_file)
-print("Verbose mode:", args.verbose)
-
 
 logging.basicConfig(
     handlers=(logging.StreamHandler(), logging.FileHandler('DineSafeTO.log')), 
@@ -43,11 +39,10 @@ logging.basicConfig(
 dataset_url = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/ea1d6e57-87af-4e23-b722-6c1f5aa18a8d/resource/815aedb5-f9d7-4dcd-a33a-4aa7ac5aac50/download/Dinesafe.csv'
 
 try:
-    dine_safe_TO = pd.read_csv(dataset_url)
+    iris_data = pd.read_csv(dataset_url)
     logging.info(f'Successfully loaded {dataset_url}')
 except Exception as e:
-    logging.error('Error loading dataset from {dataset_url}:{e}')
-    raise e
+    logging.err
 
 # %% NEW
 #Config files

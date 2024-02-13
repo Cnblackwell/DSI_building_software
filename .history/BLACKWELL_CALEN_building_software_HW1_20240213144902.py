@@ -47,7 +47,6 @@ try:
     logging.info(f'Successfully loaded {dataset_url}')
 except Exception as e:
     logging.error('Error loading dataset from {dataset_url}:{e}')
-    raise e
 
 # %% NEW
 #Config files
