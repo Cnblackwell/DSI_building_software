@@ -1,6 +1,15 @@
+# %% [markdown]
+# ----------------------------
 
-
+# %% [markdown]
 # ### BLACKWELL_CALEN'S code starts here: ###
+
+# %%
+#Import YAML, argparse, and matplotlib
+
+import yaml
+import matplotlib.pyplot as plt
+import argparse
 
 # %%
 #Loading pandas
@@ -11,9 +20,37 @@ import pandas as pd
 pd.set_option("display.max_columns", None)
 
 # %%
-# Getting started
-# Task 1: Load the data to a single DataFrame
-dine_safe_TO = pd.read_csv('/Users/cnblackwell/Desktop/DSI_Materials/python_data/Dinesafe.csv')
+#Argparse code:
+import argparse
+import sys
+
+parser = argparse.ArgumentParser(description='DineSafe TO trends: Establishments and Fines')
+parser.add_argument('--title', '-t', type=str, help='Plot title',default='DineSafe TO trends')
+parser.add_argument('--output_file', '-o', type=str, help='Output plot filename',default='DineSafe_TO_Analysis')
+
+# Parse only known arguments, ignoring any unrecognized arguments
+args, _ = parser.parse_known_args()
+
+# Access the arguments using args.title and args.output_file
+print("Title:", args.title)
+print("Output file:", args.output_file)
+
+
+# %%
+#Config files
+config_files = ['systemconfig.yml', 'jobconfig.yml']
+config = {}
+
+for this_config_file in config_files:
+    with open(this_config_file, 'r') as yamlfile:
+        this_config = yaml.safe_load(yamlfile)
+        config.update(this_config)
+
+
+# %%
+
+# Task 1: Load the data to a single DataFrame, using the config files
+dine_safe_TO = pd.read_csv(config['dataset'])
 
 # %%
 # Task 2: Profile the DataFrame
@@ -265,27 +302,22 @@ df_DineSafe_summary.plot(subplots=True)
 
 # %%
 
-# Let's combine them and ensure that the plot includes labels, a title, a grid, and a legend:
+# Plot and visualize using config and argparse, incorporated
 
-df_DineSafe_summary.plot()
+plt.scatter(dine_safe_TO['amount_fined'], dine_safe_TO['inspection_date'], color=config['plot_config']['color'])
+plt.title(args.title)
+plt.ylabel(config['plot_config']['ylabel'])  # adds x-axis label
+plt.xlabel(config['plot_config']['xlabel'])  # adds y-axis label
+plt.grid(alpha=0.8)  # adds grid with an alpha value of 0.8
+plt.savefig(f'{args.output_file}.png')
+plt.show()  # Show the plot
 
-#adds title
-plt.title('No. of Establishments with Fines ($) vs. Inspection Date')
-#adds x-axis label  
-plt.xlabel('Inspection Date') 
-#adds y-axis label 
-plt.ylabel('Amount in number or $')
-#adds legend , with proper positioning
-plt.legend(['No. of Establishments','Total Fines in $CAD'],
-           bbox_to_anchor=(1,1),loc='upper left')
-#adds grid with an alpha value of 0.8
-plt.grid(alpha=0.8)
 
-#Ta-dah!
-plt.show()
+#Save plot image to file as PNG
+plt.savefig(f'{args.output_file}.png')
 
 # %%
-plt.savefig('establishmentFine_vs_date.png')
+
 
 # %% [markdown]
 # - END - cnb

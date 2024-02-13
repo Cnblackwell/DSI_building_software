@@ -1,0 +1,11 @@
+dataset: https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/ea1d6e57-87af-4e23-b722-6c1f5aa18a8d/resource/815aedb5-f9d7-4dcd-a33a-4aa7ac5aac50/download/Dinesafe.csv
+
+plot_config:
+  title: No. of Establishments with Fines ($) vs. Inspection Date
+  xlabel: Amount in number or $
+  ylabel: Inspection Date
+  legend: No. of Establishments','Total Fines in $CAD
+  grid: alpha=0.8
+
+#this is a comment
+# grid will have an alpha value of 0.8
