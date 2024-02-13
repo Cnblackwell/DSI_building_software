@@ -15,7 +15,7 @@ import pandas as pd
 #display all columns
 pd.set_option("display.max_columns", None)
 
-# %% NEW
+# %%
 #Argparse code:
 import argparse
 import sys
@@ -32,7 +32,7 @@ print("Title:", args.title)
 print("Output file:", args.output_file)
 
 
-# %% NEW
+# %%
 #Config files
 config_files = ['systemconfig.yml', 'jobconfig.yml']
 config = {}
@@ -44,12 +44,7 @@ for this_config_file in config_files:
 
 
 # %%
-#PREVIOUSLY
-# Getting started
-# Task 1: Load the data to a single DataFrame
-#dine_safe_TO = pd.read_csv('/Users/cnblackwell/Desktop/DSI_Materials/python_data/Dinesafe.csv') 
 
-#NEW        
 # Task 1: Load the data to a single DataFrame, using the config files
 dine_safe_TO = pd.read_csv(config['dataset'])
 

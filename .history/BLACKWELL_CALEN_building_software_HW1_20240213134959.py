@@ -1,4 +1,8 @@
+# %% [markdown]
+# ----------------------------
 
+# %% [markdown]
+# ### BLACKWELL_CALEN'S code starts here: ###
 
 # %%
 #Import YAML, argparse, and matplotlib
@@ -15,7 +19,7 @@ import pandas as pd
 #display all columns
 pd.set_option("display.max_columns", None)
 
-# %% NEW
+# %%
 #Argparse code:
 import argparse
 import sys
@@ -32,7 +36,7 @@ print("Title:", args.title)
 print("Output file:", args.output_file)
 
 
-# %% NEW
+# %%
 #Config files
 config_files = ['systemconfig.yml', 'jobconfig.yml']
 config = {}
@@ -44,12 +48,7 @@ for this_config_file in config_files:
 
 
 # %%
-#PREVIOUSLY
-# Getting started
-# Task 1: Load the data to a single DataFrame
-#dine_safe_TO = pd.read_csv('/Users/cnblackwell/Desktop/DSI_Materials/python_data/Dinesafe.csv') 
 
-#NEW        
 # Task 1: Load the data to a single DataFrame, using the config files
 dine_safe_TO = pd.read_csv(config['dataset'])
 
@@ -303,26 +302,6 @@ df_DineSafe_summary.plot(subplots=True)
 
 # %%
 
-# PREVIOUSLY
-
-df_DineSafe_summary.plot()
-
-#adds title
-plt.title('No. of Establishments with Fines ($) vs. Inspection Date')
-#adds x-axis label  
-plt.xlabel('Inspection Date') 
-#adds y-axis label 
-plt.ylabel('Amount in number or $')
-#adds legend , with proper positioning
-plt.legend(['No. of Establishments','Total Fines in $CAD'],
-           bbox_to_anchor=(1,1),loc='upper left')
-#adds grid with an alpha value of 0.8
-plt.grid(alpha=0.8)
-
-#Ta-dah!
-plt.show()
-
-# NEW 
 # Plot and visualize using config and argparse, incorporated
 
 plt.scatter(dine_safe_TO['amount_fined'], dine_safe_TO['inspection_date'], color=config['plot_config']['color'])
